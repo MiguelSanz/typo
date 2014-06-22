@@ -4,7 +4,7 @@ describe Admin::CategoriesController do
   render_views
 
   before(:each) do
-    Factory(:blog)
+    #Factory(:blog)
     #TODO Delete after removing fixtures
     Profile.delete_all
     henri = Factory(:user, :login => 'henri', :profile => Factory(:profile_admin, :label => Profile::ADMIN))
@@ -14,6 +14,36 @@ describe Admin::CategoriesController do
   it "test_index" do
     get :index
     assert_response :redirect, :action => 'index'
+  end
+
+  it "test_new" do
+    get :new
+    assert_response :success
+  end
+
+  describe "testing new" do
+    before(:each) do
+      get :new
+    end
+
+    def base_category(options={})
+      { :name => "new example",
+        :keywords => "Hello world!",
+        :description => 'This is an example created in cucumber' }.merge(options)
+    end
+
+    it 'should render template new' do
+      assert_template 'new'
+      assert_tag :tag => "table",
+        :attributes => { :id => "category_container" }
+    end
+
+    it 'should create new category' do
+      Category.count.should be == 1
+      post :new, 'category' => base_category
+      Category.count.should be == 2
+    end
+
   end
 
   describe "test_edit" do
