@@ -544,6 +544,7 @@ describe Admin::ContentController do
         Article.should_not be_exists({:id => draft.id})
         Article.should_not be_exists({:id => draft_2.id})
       end
+      
     end
 
     describe 'resource_add action' do
