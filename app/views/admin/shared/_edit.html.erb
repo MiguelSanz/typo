@@ -5,6 +5,7 @@
 
 <% end %>
 
+<% if current_user.admin? %>
 <%= form_tag("/admin/content/merge_articles/#{@article.id}") do %>
 
   <div class=''>
@@ -14,4 +15,5 @@
 
   <%= submit_tag "Merge" %>
 
+<% end %>
 <% end %>

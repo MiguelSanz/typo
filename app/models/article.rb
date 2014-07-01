@@ -417,14 +417,16 @@ class Article < Content
   end
 
   def merge_with(article_id)
-    unless self.id == article_id || Article.find(article_id).nil?
-      self.body = "#{self.body} #{Article.find(article_id).body}"
+    article = Article.find(article_id)
+    unless self.id == article_id || article.nil?
+      self.body = "#{self.body}#{article.body}"
       self.save
       comments = Feedback.where(:article_id => article_id)
       comments.each do |comment|
         comment.article_id = self.id
         comment.save
       end
+      article.destroy
     end
   end  
 

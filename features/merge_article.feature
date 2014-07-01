@@ -28,5 +28,5 @@ Feature: Merge Articles
     And I am on the article page for "Foobar"
     And I select to merge with "Example"
     And I press "Merge"
-    Then the article "Foobar" should have body "Lorem Ipsum Text example"
+    Then the article "Foobar" should have body "Lorem IpsumText example"
     And show me the page
